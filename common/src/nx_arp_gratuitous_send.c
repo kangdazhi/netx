@@ -1,0 +1,107 @@
+/**************************************************************************/
+/*                                                                        */
+/*       Copyright (c) Microsoft Corporation. All rights reserved.        */
+/*                                                                        */
+/*       This software is licensed under the Microsoft Software License   */
+/*       Terms for Microsoft Azure RTOS. Full text of the license can be  */
+/*       found in the LICENSE file at https://aka.ms/AzureRTOS_EULA       */
+/*       and in the root directory of this software.                      */
+/*                                                                        */
+/**************************************************************************/
+
+
+/**************************************************************************/
+/**************************************************************************/
+/**                                                                       */
+/** NetX Component                                                        */
+/**                                                                       */
+/**   Address Resolution Protocol (ARP)                                   */
+/**                                                                       */
+/**************************************************************************/
+/**************************************************************************/
+
+#define NX_SOURCE_CODE
+
+
+/* Include necessary system files.  */
+
+#include "nx_api.h"
+#include "nx_arp.h"
+#include "nx_packet.h"
+
+
+/**************************************************************************/
+/*                                                                        */
+/*  FUNCTION                                               RELEASE        */
+/*                                                                        */
+/*    _nx_arp_gratuitous_send                             PORTABLE C      */
+/*                                                           6.0          */
+/*  AUTHOR                                                                */
+/*                                                                        */
+/*    Yuxin Zhou, Microsoft Corporation                                   */
+/*                                                                        */
+/*  DESCRIPTION                                                           */
+/*                                                                        */
+/*    This function builds a Gratuitous ARP packet and calls the          */
+/*    associated driver to send it out on all attached interfaces.        */
+/*    If a response is received at a later time, the supplied response    */
+/*    handler is called.                                                  */
+/*                                                                        */
+/*  INPUT                                                                 */
+/*                                                                        */
+/*    ip_ptr                                Pointer to IP instance        */
+/*    response_handler                      Pointer to function to handle */
+/*                                            Gratuitous ARP response     */
+/*                                                                        */
+/*  OUTPUT                                                                */
+/*                                                                        */
+/*    status                                Completion status             */
+/*                                                                        */
+/*  CALLS                                                                 */
+/*                                                                        */
+/*    _nx_arp_announce_send                 Send ARP announce             */
+/*    tx_mutex_get                          Get protection mutex          */
+/*    tx_mutex_put                          Put protection mutex          */
+/*                                                                        */
+/*  CALLED BY                                                             */
+/*                                                                        */
+/*    Application Code                                                    */
+/*                                                                        */
+/*  RELEASE HISTORY                                                       */
+/*                                                                        */
+/*    DATE              NAME                      DESCRIPTION             */
+/*                                                                        */
+/*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*                                                                        */
+/**************************************************************************/
+UINT  _nx_arp_gratuitous_send(NX_IP *ip_ptr, VOID (*response_handler)(NX_IP *ip_ptr, NX_PACKET *packet_ptr))
+{
+
+ULONG i;
+
+    /* Get mutex protection.  */
+    tx_mutex_get(&(ip_ptr -> nx_ip_protection), TX_WAIT_FOREVER);
+
+    /* Save the response handler in the IP structure.  */
+    ip_ptr -> nx_ip_arp_gratuitous_response_handler =  response_handler;
+
+    /* Release mutex protection.  */
+    tx_mutex_put(&(ip_ptr -> nx_ip_protection));
+
+    for (i = 0; i < NX_MAX_PHYSICAL_INTERFACES; i++)
+    {
+
+        /* Skip the entry the IP address is invalid */
+        if (ip_ptr -> nx_ip_interface[i].nx_interface_ip_address == 0)
+        {
+            continue;
+        }
+
+        /* Send ARP announce.  */
+        _nx_arp_announce_send(ip_ptr, i);
+    }
+
+    /* Return a successful completion.  */
+    return(NX_SUCCESS);
+}
+
