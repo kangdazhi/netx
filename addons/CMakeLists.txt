@@ -3,36 +3,28 @@
 
 set(SOURCES 
     # {{BEGIN_TARGET_SOURCES}}
-    ${CMAKE_CURRENT_LIST_DIR}/auto_ip/nx_auto_ip.c
-    # ${CMAKE_CURRENT_LIST_DIR}/BSD/nxd_bsd.c
-    ${CMAKE_CURRENT_LIST_DIR}/dhcp/nxd_dhcpv6_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/dhcp/nxd_dhcpv6_server.c
-    ${CMAKE_CURRENT_LIST_DIR}/dhcp/nxd_dhcp_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/dhcp/nxd_dhcp_server.c
-    ${CMAKE_CURRENT_LIST_DIR}/dns/nxd_dns.c
-    ${CMAKE_CURRENT_LIST_DIR}/ftp/nxd_ftp_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/ftp/nxd_ftp_server.c
-    ${CMAKE_CURRENT_LIST_DIR}/http/nxd_http_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/http/nxd_http_server.c
-    ${CMAKE_CURRENT_LIST_DIR}/mdns/nxd_mdns.c
-    ${CMAKE_CURRENT_LIST_DIR}/mqtt/nxd_mqtt_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/nat/nx_nat.c
-    ${CMAKE_CURRENT_LIST_DIR}/pop3/nxd_pop3_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/ppp/nx_ppp.c
-    ${CMAKE_CURRENT_LIST_DIR}/pppoe/nx_pppoe_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/pppoe/nx_pppoe_server.c
-    ${CMAKE_CURRENT_LIST_DIR}/smtp/nxd_smtp_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/snmp/nxd_snmp.c
-    ${CMAKE_CURRENT_LIST_DIR}/snmp/nx_des.c
-    ${CMAKE_CURRENT_LIST_DIR}/snmp/nx_sha1.c
-    ${CMAKE_CURRENT_LIST_DIR}/sntp/nxd_sntp_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/telnet/nxd_telnet_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/telnet/nxd_telnet_server.c
-    ${CMAKE_CURRENT_LIST_DIR}/tftp/nxd_tftp_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/tftp/nxd_tftp_server.c
-    ${CMAKE_CURRENT_LIST_DIR}/web/nx_tcpserver.c
-    ${CMAKE_CURRENT_LIST_DIR}/web/nx_web_http_client.c
-    ${CMAKE_CURRENT_LIST_DIR}/web/nx_web_http_server.c
+	${CMAKE_CURRENT_LIST_DIR}/src/auto_ip/nx_auto_ip.c
+	${CMAKE_CURRENT_LIST_DIR}/src/dhcp/nx_dhcp_server.c
+	${CMAKE_CURRENT_LIST_DIR}/src/dhcp/nx_dhcp.c
+	${CMAKE_CURRENT_LIST_DIR}/src/dns/nx_dns.c
+	${CMAKE_CURRENT_LIST_DIR}/src/ftp/nx_ftp_client.c
+	${CMAKE_CURRENT_LIST_DIR}/src/ftp/nx_ftp_server.c
+	${CMAKE_CURRENT_LIST_DIR}/src/http/nx_http_client.c
+	${CMAKE_CURRENT_LIST_DIR}/src/http/nx_http_server.c
+	${CMAKE_CURRENT_LIST_DIR}/src/pop3/nx_pop3_client.c
+	${CMAKE_CURRENT_LIST_DIR}/src/ppp/nx_ppp.c
+	${CMAKE_CURRENT_LIST_DIR}/src/pppoe/nx_pppoe_client.c
+	${CMAKE_CURRENT_LIST_DIR}/src/pppoe/nx_pppoe_server.c
+	${CMAKE_CURRENT_LIST_DIR}/src/smtp/nx_smtp_client.c
+	${CMAKE_CURRENT_LIST_DIR}/src/snmp/nx_des.c
+	${CMAKE_CURRENT_LIST_DIR}/src/snmp/nx_sha1.c
+	${CMAKE_CURRENT_LIST_DIR}/src/snmp/nx_snmp.c
+	${CMAKE_CURRENT_LIST_DIR}/src/sntp/nx_sntp_client.c
+	${CMAKE_CURRENT_LIST_DIR}/src/telnet/nx_telnet_client.c
+	${CMAKE_CURRENT_LIST_DIR}/src/telnet/nx_telnet_server.c
+	${CMAKE_CURRENT_LIST_DIR}/src/tftp/nx_tftp_client.c
+	${CMAKE_CURRENT_LIST_DIR}/src/tftp/nx_tftp_server.c
+
     # {{END_TARGET_SOURCES}}
 )
 
