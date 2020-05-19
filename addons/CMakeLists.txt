@@ -3,27 +3,27 @@
 
 set(SOURCES 
     # {{BEGIN_TARGET_SOURCES}}
-	${CMAKE_CURRENT_LIST_DIR}/src/auto_ip/nx_auto_ip.c
-	${CMAKE_CURRENT_LIST_DIR}/src/dhcp/nx_dhcp_server.c
-	${CMAKE_CURRENT_LIST_DIR}/src/dhcp/nx_dhcp.c
-	${CMAKE_CURRENT_LIST_DIR}/src/dns/nx_dns.c
-	${CMAKE_CURRENT_LIST_DIR}/src/ftp/nx_ftp_client.c
-	${CMAKE_CURRENT_LIST_DIR}/src/ftp/nx_ftp_server.c
-	${CMAKE_CURRENT_LIST_DIR}/src/http/nx_http_client.c
-	${CMAKE_CURRENT_LIST_DIR}/src/http/nx_http_server.c
-	${CMAKE_CURRENT_LIST_DIR}/src/pop3/nx_pop3_client.c
-	${CMAKE_CURRENT_LIST_DIR}/src/ppp/nx_ppp.c
-	${CMAKE_CURRENT_LIST_DIR}/src/pppoe/nx_pppoe_client.c
-	${CMAKE_CURRENT_LIST_DIR}/src/pppoe/nx_pppoe_server.c
-	${CMAKE_CURRENT_LIST_DIR}/src/smtp/nx_smtp_client.c
-	${CMAKE_CURRENT_LIST_DIR}/src/snmp/nx_des.c
-	${CMAKE_CURRENT_LIST_DIR}/src/snmp/nx_sha1.c
-	${CMAKE_CURRENT_LIST_DIR}/src/snmp/nx_snmp.c
-	${CMAKE_CURRENT_LIST_DIR}/src/sntp/nx_sntp_client.c
-	${CMAKE_CURRENT_LIST_DIR}/src/telnet/nx_telnet_client.c
-	${CMAKE_CURRENT_LIST_DIR}/src/telnet/nx_telnet_server.c
-	${CMAKE_CURRENT_LIST_DIR}/src/tftp/nx_tftp_client.c
-	${CMAKE_CURRENT_LIST_DIR}/src/tftp/nx_tftp_server.c
+	${CMAKE_CURRENT_LIST_DIR}/auto_ip/nx_auto_ip.c
+	${CMAKE_CURRENT_LIST_DIR}/dhcp/nx_dhcp_server.c
+	${CMAKE_CURRENT_LIST_DIR}/dhcp/nx_dhcp.c
+	${CMAKE_CURRENT_LIST_DIR}/dns/nx_dns.c
+	${CMAKE_CURRENT_LIST_DIR}/ftp/nx_ftp_client.c
+	${CMAKE_CURRENT_LIST_DIR}/ftp/nx_ftp_server.c
+	${CMAKE_CURRENT_LIST_DIR}/http/nx_http_client.c
+	${CMAKE_CURRENT_LIST_DIR}/http/nx_http_server.c
+	${CMAKE_CURRENT_LIST_DIR}/pop3/nx_pop3_client.c
+	${CMAKE_CURRENT_LIST_DIR}/ppp/nx_ppp.c
+	${CMAKE_CURRENT_LIST_DIR}/pppoe/nx_pppoe_client.c
+	${CMAKE_CURRENT_LIST_DIR}/pppoe/nx_pppoe_server.c
+	${CMAKE_CURRENT_LIST_DIR}/smtp/nx_smtp_client.c
+	${CMAKE_CURRENT_LIST_DIR}/snmp/nx_des.c
+	${CMAKE_CURRENT_LIST_DIR}/snmp/nx_sha1.c
+	${CMAKE_CURRENT_LIST_DIR}/snmp/nx_snmp.c
+	${CMAKE_CURRENT_LIST_DIR}/sntp/nx_sntp_client.c
+	${CMAKE_CURRENT_LIST_DIR}/telnet/nx_telnet_client.c
+	${CMAKE_CURRENT_LIST_DIR}/telnet/nx_telnet_server.c
+	${CMAKE_CURRENT_LIST_DIR}/tftp/nx_tftp_client.c
+	${CMAKE_CURRENT_LIST_DIR}/tftp/nx_tftp_server.c
 
     # {{END_TARGET_SOURCES}}
 )
