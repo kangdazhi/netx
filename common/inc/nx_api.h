@@ -26,7 +26,7 @@
 /*  APPLICATION INTERFACE DEFINITION                       RELEASE        */
 /*                                                                        */
 /*    nx_api.h                                            PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.0.1        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -45,6 +45,10 @@
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  06-30-2020     Yuxin Zhou               Modified comment(s), fixed    */
+/*                                            ThreadX version check,      */
+/*                                            updated product constants,  */
+/*                                            resulting in version 6.0.1  */
 /*                                                                        */
 /**************************************************************************/
 
@@ -86,7 +90,7 @@ extern   "C" {
 #include "tx_trace.h"
 
 /* Define symbols for compatibility before and after ThreadX 5.8. */
-#if (((THREADX_MAJOR_VERSION << 16) | THREADX_MINOR_VERSION) >= 0x0508)
+#if (((THREADX_MAJOR_VERSION << 8) | THREADX_MINOR_VERSION) >= 0x0508)
 #define NX_CLEANUP_PARAMETER , ULONG suspension_sequence
 #define NX_CLEANUP_ARGUMENT  , 0
 #define NX_CLEANUP_EXTENSION NX_PARAMETER_NOT_USED(suspension_sequence);
@@ -94,7 +98,7 @@ extern   "C" {
 #define NX_CLEANUP_PARAMETER
 #define NX_CLEANUP_ARGUMENT
 #define NX_CLEANUP_EXTENSION
-#endif /* (((THREADX_MAJOR_VERSION << 16) | THREADX_MINOR_VERSION) >= 0x0508) */
+#endif /* (((THREADX_MAJOR_VERSION << 8) | THREADX_MINOR_VERSION) >= 0x0508) */
 
 /* Define the get system state macro. By default, it simply maps to the variable _tx_thread_system_state.  */
 #ifndef TX_THREAD_GET_SYSTEM_STATE
@@ -350,11 +354,13 @@ VOID _nx_trace_event_update(TX_TRACE_BUFFER_ENTRY *event, ULONG timestamp, ULONG
 #endif /* NX_PACKET_HEADER_PAD */
 
 /* Define basic constants for the NetX TCP/IP Stack.  */
-#define EL_PRODUCT_NETX
-#define NETX_MAJOR_VERSION    6
-#define NETX_MINOR_VERSION    0
+#define AZURE_RTOS_NETX
+#define NETX_MAJOR_VERSION        6
+#define NETX_MINOR_VERSION        0
+#define NETX_PATCH_VERSION        1
 
 /* The following symbols are defined for backward compatibility reasons.*/
+#define EL_PRODUCT_NETX
 #define __PRODUCT_NETX__
 #define __NETX_MAJOR_VERSION__    NETX_MAJOR_VERSION
 #define __NETX_MINOR_VERSION__    NETX_MINOR_VERSION
