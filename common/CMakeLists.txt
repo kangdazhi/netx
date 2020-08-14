@@ -203,6 +203,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 	${CMAKE_CURRENT_LIST_DIR}/src/nx_udp_socket_unbind.c
 	${CMAKE_CURRENT_LIST_DIR}/src/nx_udp_source_extract.c
 	${CMAKE_CURRENT_LIST_DIR}/src/nx_utility.c
+	${CMAKE_CURRENT_LIST_DIR}/src/nx_md5.c
 	${CMAKE_CURRENT_LIST_DIR}/src/nxe_arp_dynamic_entries_invalidate.c
 	${CMAKE_CURRENT_LIST_DIR}/src/nxe_arp_dynamic_entry_set.c
 	${CMAKE_CURRENT_LIST_DIR}/src/nxe_arp_enable.c

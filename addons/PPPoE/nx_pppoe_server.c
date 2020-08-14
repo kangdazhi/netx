@@ -37,7 +37,6 @@
 /* Include necessary system files.  */
 
 #include "nx_api.h"
-#ifndef NX_DISABLE_IPV4
 #include "nx_ip.h"
 #include "nx_pppoe_server.h"
 #include "nx_packet.h"
@@ -2071,7 +2070,6 @@ UINT                i;
                 /* Restore interrupts.  */
                 TX_RESTORE
                              
-#ifndef NX_DISABLE_PACKET_CHAIN
 
                 /* Discard the chained packets.  */
                 if (packet_ptr -> nx_packet_next)
@@ -2079,7 +2077,6 @@ UINT                i;
                     nx_packet_release(packet_ptr);
                     continue;
                 }
-#endif
 
                 /* Check for valid packet length.  */
                 if (packet_ptr -> nx_packet_length < NX_PPPOE_SERVER_OFFSET_PAYLOAD)
@@ -4405,4 +4402,3 @@ VOID PppReceiveDataInd(UINT interfaceHandle, UINT data_length, UCHAR *data_ptr)
     nx_pppoe_server_session_send(_nx_pppoe_server_created_ptr, interfaceHandle, data_ptr, data_length);
 }
 #endif
-#endif /* NX_DISABLE_IPV4 */

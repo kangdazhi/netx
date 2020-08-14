@@ -49,7 +49,6 @@
 #include   "nx_ppp.h"
 #include   "nx_pppoe_server.h"
 
-#ifndef NX_DISABLE_IPV4
 
 /* Defined NX_PPP_PPPOE_ENABLE if using PPP, since PPP module has been modified to match PPPoE module under this definition.  */
 #ifdef NX_PPP_PPPOE_ENABLE
@@ -390,4 +389,3 @@ UINT    interfaceHandle = 0;
 
 #endif /* NX_PPP_PPPOE_ENABLE  */
 
-#endif /* NX_DISABLE_IPV4  */

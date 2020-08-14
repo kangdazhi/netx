@@ -37,7 +37,6 @@
 /* Include necessary system files.  */
 
 #include "nx_api.h"
-#ifndef NX_DISABLE_IPV4
 #include "nx_ip.h" 
 #include "nx_packet.h"
 #include "nx_pppoe_client.h"
@@ -1810,7 +1809,6 @@ ULONG               timeout = 0;
                 /* Restore interrupts.  */
                 TX_RESTORE
 
-#ifndef NX_DISABLE_PACKET_CHAIN
 
                 /* Discard the chained packets.  */
                 if (packet_ptr -> nx_packet_next)
@@ -1818,7 +1816,6 @@ ULONG               timeout = 0;
                     nx_packet_release(packet_ptr);
                     continue;
                 }
-#endif
 
                 /* Check for valid packet length.  */
                 if (packet_ptr -> nx_packet_length < NX_PPPOE_CLIENT_OFFSET_PAYLOAD)
@@ -3730,5 +3727,4 @@ NX_PPPOE_CLIENT *pppoe_client_ptr;      /* Working PPPoE Client pointer  */
     /* Restore interrupts.  */
     TX_RESTORE
 }
-#endif /* NX_DISABLE_IPV4 */
 

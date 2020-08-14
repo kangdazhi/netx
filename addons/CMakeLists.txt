@@ -28,13 +28,10 @@ set(SOURCES
     # {{END_TARGET_SOURCES}}
 )
 
-# Remove the file server files if the user doesn't want them
-if(NOT NXD_ENABLE_FILE_SERVERS)
-    list(REMOVE_ITEM SOURCES     
-        "${CMAKE_CURRENT_LIST_DIR}/web/nx_web_http_server.c"
-        "${CMAKE_CURRENT_LIST_DIR}/http/nxd_http_server.c"
-        "${CMAKE_CURRENT_LIST_DIR}/ftp/nxd_ftp_server.c"
-        "${CMAKE_CURRENT_LIST_DIR}/tftp/nxd_tftp_server.c"
+# Append BSD file if the user wants it
+if(NXD_ENABLE_FILE_BSD)
+    list(APPEND SOURCES
+         ${CMAKE_CURRENT_LIST_DIR}/BSD/nx_bsd.c
     )
 endif()
 
@@ -47,9 +44,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/dns
     ${CMAKE_CURRENT_LIST_DIR}/ftp
     ${CMAKE_CURRENT_LIST_DIR}/http
-    ${CMAKE_CURRENT_LIST_DIR}/mdns
-    ${CMAKE_CURRENT_LIST_DIR}/mqtt
-    ${CMAKE_CURRENT_LIST_DIR}/nat
     ${CMAKE_CURRENT_LIST_DIR}/pop3
     ${CMAKE_CURRENT_LIST_DIR}/ppp
     ${CMAKE_CURRENT_LIST_DIR}/pppoe
@@ -58,5 +52,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/sntp
     ${CMAKE_CURRENT_LIST_DIR}/telnet
     ${CMAKE_CURRENT_LIST_DIR}/tftp
-    ${CMAKE_CURRENT_LIST_DIR}/web
 )
