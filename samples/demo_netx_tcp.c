@@ -189,7 +189,7 @@ ULONG      length;
         }
 
         /* Write ABCs into the packet payload!  */
-        memcpy(my_packet -> nx_packet_prepend_ptr, DEMO_DATA, sizeof(DEMO_DATA));
+        memcpy(my_packet -> nx_packet_prepend_ptr, DEMO_DATA, sizeof(DEMO_DATA)); /* Use case of memcpy is verified. */
 
         /* Adjust the write pointer.  */
         my_packet -> nx_packet_length =  sizeof(DEMO_DATA);

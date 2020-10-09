@@ -25,7 +25,7 @@
 /*  APPLICATION INTERFACE DEFINITION                       RELEASE        */
 /*                                                                        */
 /*    nx_smtp_client.c                                    PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -42,6 +42,8 @@
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
                
@@ -141,7 +143,7 @@ static NX_SMTP_CLIENT_STATES protocol_states[] =
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nxe_smtp_client_create                             PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -186,6 +188,8 @@ static NX_SMTP_CLIENT_STATES protocol_states[] =
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nxe_smtp_client_create(NX_SMTP_CLIENT *client_ptr, NX_IP *ip_ptr, NX_PACKET_POOL *client_packet_pool_ptr, 
@@ -229,7 +233,7 @@ UINT status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_client_create                              PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -278,6 +282,9 @@ UINT status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_client_create(NX_SMTP_CLIENT *client_ptr, NX_IP *ip_ptr, NX_PACKET_POOL *client_packet_pool_ptr, 
@@ -306,7 +313,7 @@ NX_SMTP_CLIENT_MAIL    *mail_ptr;
         return(status);
     }
 
-    memcpy(client_ptr -> nx_smtp_username, username, str_length);
+    memcpy(client_ptr -> nx_smtp_username, username, str_length); /* Use case of memcpy is verified. */
 
     status = _nx_utility_string_length_check(password, &str_length, NX_SMTP_CLIENT_MAX_PASSWORD);
     if (status)
@@ -314,7 +321,7 @@ NX_SMTP_CLIENT_MAIL    *mail_ptr;
         return(status);
     }
 
-    memcpy(client_ptr -> nx_smtp_password, password, str_length);
+    memcpy(client_ptr -> nx_smtp_password, password, str_length); /* Use case of memcpy is verified. */
 
     status = _nx_utility_string_length_check(client_domain, &str_length, NX_SMTP_CLIENT_MAX_USERNAME);
     if (status)
@@ -322,7 +329,7 @@ NX_SMTP_CLIENT_MAIL    *mail_ptr;
         return(status);
     }
 
-    memcpy(client_ptr -> nx_smtp_client_domain, client_domain, str_length);
+    memcpy(client_ptr -> nx_smtp_client_domain, client_domain, str_length); /* Use case of memcpy is verified. */
 
     /* Set the mail server IP address and port number.  */
     client_ptr -> nx_smtp_server_address = server_address;
@@ -377,7 +384,7 @@ NX_SMTP_CLIENT_MAIL    *mail_ptr;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nxe_smtp_client_delete                             PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -408,6 +415,8 @@ NX_SMTP_CLIENT_MAIL    *mail_ptr;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nxe_smtp_client_delete(NX_SMTP_CLIENT *client_ptr)
@@ -437,7 +446,7 @@ UINT status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_client_delete                              PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -469,6 +478,8 @@ UINT status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_client_delete(NX_SMTP_CLIENT *client_ptr)
@@ -507,7 +518,7 @@ UINT status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nxe_smtp_mail_send                                 PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -546,6 +557,8 @@ UINT status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nxe_smtp_mail_send(NX_SMTP_CLIENT *client_ptr, CHAR *recipient_address, UINT priority, 
@@ -582,7 +595,7 @@ UINT  status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_mail_send                                  PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -631,6 +644,8 @@ UINT  status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_mail_send(NX_SMTP_CLIENT *client_ptr, 
@@ -706,7 +721,7 @@ NX_SMTP_CLIENT_MAIL         *mail_ptr;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_client_process                             PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -741,6 +756,8 @@ NX_SMTP_CLIENT_MAIL         *mail_ptr;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 static UINT _nx_smtp_client_process(NX_SMTP_CLIENT *client_ptr)
@@ -912,7 +929,7 @@ UINT                    close_connection = NX_FALSE;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_greeting                               PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -944,6 +961,8 @@ UINT                    close_connection = NX_FALSE;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_greeting(NX_SMTP_CLIENT *client_ptr)
@@ -962,7 +981,7 @@ UINT  _nx_smtp_cmd_greeting(NX_SMTP_CLIENT *client_ptr)
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_idle                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -993,6 +1012,8 @@ UINT  _nx_smtp_cmd_greeting(NX_SMTP_CLIENT *client_ptr)
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_idle(NX_SMTP_CLIENT *client_ptr)
@@ -1009,7 +1030,7 @@ UINT  _nx_smtp_cmd_idle(NX_SMTP_CLIENT *client_ptr)
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_idle                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1042,6 +1063,8 @@ UINT  _nx_smtp_cmd_idle(NX_SMTP_CLIENT *client_ptr)
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_idle(NX_SMTP_CLIENT *client_ptr)
@@ -1058,7 +1081,7 @@ UINT  _nx_smtp_rsp_idle(NX_SMTP_CLIENT *client_ptr)
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_greeting                               PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1092,6 +1115,8 @@ UINT  _nx_smtp_rsp_idle(NX_SMTP_CLIENT *client_ptr)
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_greeting(NX_SMTP_CLIENT *client_ptr)
@@ -1146,7 +1171,7 @@ UINT     status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_helo                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1166,7 +1191,8 @@ UINT     status;
 /*                                                                        */
 /*  CALLS                                                                 */
 /*                                                                        */
-/*    _nx_smtp_utility_send_to_server Sends data to server.               */
+/*    _nx_smtp_utility_send_to_server       Sends data to server          */
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLED BY                                                             */
 /*                                                                        */
@@ -1177,6 +1203,9 @@ UINT     status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_helo(NX_SMTP_CLIENT *client_ptr)
@@ -1202,14 +1231,14 @@ UINT     domain_length;
     }
 
     /* Format the HELO command.  */
-    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_HELO, sizeof(NX_SMTP_COMMAND_HELO) - 1);
+    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_HELO, sizeof(NX_SMTP_COMMAND_HELO) - 1); /* Use case of memcpy is verified. */
     index = sizeof(NX_SMTP_COMMAND_HELO) - 1;
 
     _nx_smtp_buffer[index++] = ' ';
 
-    memcpy(&_nx_smtp_buffer[index],  client_ptr -> nx_smtp_client_domain, domain_length);
+    memcpy(&_nx_smtp_buffer[index],  client_ptr -> nx_smtp_client_domain, domain_length); /* Use case of memcpy is verified. */
     index += domain_length;
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the HELO command.  */
@@ -1235,7 +1264,7 @@ UINT     domain_length;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_helo                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1260,7 +1289,6 @@ UINT     domain_length;
 /*    _nx_smtp_parse_response       Parse specified argument from buffer  */
 /*    _nx_smtp_rsp_hello_command    Handle HELO/EHLO reply from Server    */
 /*    nx_packet_release             Release NetX receive packet           */
-/*    memcpy                        Copy data to specified area of memory */
 /*    memset                        Clear specified area of memory        */
 /*                                                                        */
 /*  CALLED BY                                                             */
@@ -1272,6 +1300,8 @@ UINT     domain_length;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_helo(NX_SMTP_CLIENT *client_ptr)
@@ -1329,7 +1359,7 @@ UINT        status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_ehlo                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1350,6 +1380,7 @@ UINT        status;
 /*  CALLS                                                                 */
 /*                                                                        */
 /*    _nx_smtp_utility_send_to_server       Send data to server           */
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLED BY                                                             */
 /*                                                                        */
@@ -1360,6 +1391,9 @@ UINT        status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_ehlo(NX_SMTP_CLIENT *client_ptr)
@@ -1385,13 +1419,13 @@ UINT     domain_length;
     }
     
     /* Format the EHLO command.  */
-    memcpy(&_nx_smtp_buffer[0],  NX_SMTP_COMMAND_EHLO, sizeof(NX_SMTP_COMMAND_EHLO) - 1);
+    memcpy(&_nx_smtp_buffer[0],  NX_SMTP_COMMAND_EHLO, sizeof(NX_SMTP_COMMAND_EHLO) - 1); /* Use case of memcpy is verified. */
     index = sizeof(NX_SMTP_COMMAND_EHLO) - 1;
 
     _nx_smtp_buffer[index++] = ' ';
-    memcpy(&_nx_smtp_buffer[index],  client_ptr -> nx_smtp_client_domain, domain_length);
+    memcpy(&_nx_smtp_buffer[index],  client_ptr -> nx_smtp_client_domain, domain_length); /* Use case of memcpy is verified. */
     index += domain_length;
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
     
     /* Send the EHLO command.  */
@@ -1418,7 +1452,7 @@ UINT     domain_length;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_ehlo                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1455,6 +1489,8 @@ UINT     domain_length;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_ehlo(NX_SMTP_CLIENT *client_ptr)
@@ -1518,7 +1554,7 @@ UINT            status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_rsp_hello_command                          PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1551,6 +1587,8 @@ UINT            status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_hello_command(NX_SMTP_CLIENT* client_ptr)
@@ -1594,7 +1632,7 @@ UINT     first_digit_server_reply;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_auth                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1620,16 +1658,20 @@ UINT     first_digit_server_reply;
 /*    _nx_smtp_cmd_mail                     Send MAIL command to server   */
 /*    _nx_smtp_utility_send_to_server       Send data to server           */
 /*    memset                                Clear area of memory          */
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLED BY                                                             */
 /*                                                                        */
-/*    _nx_smtp_client_process          Runs the SMTP session         */
+/*    _nx_smtp_client_process               Runs the SMTP session         */
 /*                                                                        */
 /*  RELEASE HISTORY                                                       */
 /*                                                                        */
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_auth(NX_SMTP_CLIENT *client_ptr)
@@ -1662,23 +1704,23 @@ UINT            index;
     if (client_ptr -> nx_smtp_client_authentication_type == NX_SMTP_CLIENT_AUTH_LOGIN)
     {
 
-        memcpy(&_nx_smtp_buffer[0],  NX_SMTP_CLIENT_AUTH_LOGIN_TEXT, sizeof(NX_SMTP_CLIENT_AUTH_LOGIN_TEXT) - 1);
+        memcpy(&_nx_smtp_buffer[0],  NX_SMTP_CLIENT_AUTH_LOGIN_TEXT, sizeof(NX_SMTP_CLIENT_AUTH_LOGIN_TEXT) - 1); /* Use case of memcpy is verified. */
         index = sizeof(NX_SMTP_CLIENT_AUTH_LOGIN_TEXT) - 1;
     }
     else if (client_ptr -> nx_smtp_client_authentication_type == NX_SMTP_CLIENT_AUTH_CRAM_MD5)
     {
 
-        memcpy(&_nx_smtp_buffer[0],  NX_SMTP_CLIENT_AUTH_CRAM_MD5_TEXT, sizeof(NX_SMTP_CLIENT_AUTH_CRAM_MD5_TEXT) - 1);
+        memcpy(&_nx_smtp_buffer[0],  NX_SMTP_CLIENT_AUTH_CRAM_MD5_TEXT, sizeof(NX_SMTP_CLIENT_AUTH_CRAM_MD5_TEXT) - 1); /* Use case of memcpy is verified. */
         index = sizeof(NX_SMTP_CLIENT_AUTH_CRAM_MD5_TEXT) - 1;
     }
     else 
     {
 
-        memcpy(&_nx_smtp_buffer[0],  NX_SMTP_CLIENT_AUTH_PLAIN_TEXT, sizeof(NX_SMTP_CLIENT_AUTH_PLAIN_TEXT) - 1);
+        memcpy(&_nx_smtp_buffer[0],  NX_SMTP_CLIENT_AUTH_PLAIN_TEXT, sizeof(NX_SMTP_CLIENT_AUTH_PLAIN_TEXT) - 1); /* Use case of memcpy is verified. */
         index = sizeof(NX_SMTP_CLIENT_AUTH_PLAIN_TEXT) - 1;
     }
 
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the AUTH command to the server.  */
@@ -1704,7 +1746,7 @@ UINT            index;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_auth                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1751,6 +1793,8 @@ UINT            index;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_auth(NX_SMTP_CLIENT *client_ptr)
@@ -1922,7 +1966,7 @@ UINT        auth_length;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_auth_challenge                         PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -1956,6 +2000,10 @@ UINT        auth_length;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), improved */
+/*                                            buffer length verification, */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_auth_challenge(NX_SMTP_CLIENT *client_ptr)
@@ -1990,7 +2038,7 @@ UINT     password_length;
 
             UCHAR plain_auth_buffer[NX_SMTP_CLIENT_AUTH_CHALLENGE_SIZE];  
 
-            if (NX_SMTP_CLIENT_AUTH_CHALLENGE_SIZE < (length + 1 + length + password_length))
+            if (NX_SMTP_CLIENT_AUTH_CHALLENGE_SIZE < (length + 1 + length + 1 + password_length))
             {
 
                 /* Buffer size too small. */
@@ -2000,11 +2048,11 @@ UINT     password_length;
             memset(&plain_auth_buffer[0], 0, NX_SMTP_CLIENT_AUTH_CHALLENGE_SIZE);
 
             /* Process the client name as per AUTH PLAIN syntax: authorization-id\0authentication-id\0password. */
-            memcpy(&plain_auth_buffer[0], client_ptr -> nx_smtp_username,  length);
+            memcpy(&plain_auth_buffer[0], client_ptr -> nx_smtp_username,  length); /* Use case of memcpy is verified. */
             length++;
-            memcpy(&plain_auth_buffer[length], client_ptr -> nx_smtp_username,  length); 
+            memcpy(&plain_auth_buffer[length], client_ptr -> nx_smtp_username,  length);  /* Use case of memcpy is verified. */
             length += length;
-            memcpy(&plain_auth_buffer[length], client_ptr -> nx_smtp_password, password_length);
+            memcpy(&plain_auth_buffer[length], client_ptr -> nx_smtp_password, password_length); /* Use case of memcpy is verified. */
             length += password_length;
     
             /* Now encode the combined client username/password.  */
@@ -2032,7 +2080,7 @@ UINT     password_length;
     {
 
         /* Unknown prompt: Send the '*' to terminate the authentication process.  */
-        memcpy(auth_reply_encoded, NX_SMTP_CANCEL_AUTHENTICATION,  sizeof(NX_SMTP_CANCEL_AUTHENTICATION));
+        memcpy(auth_reply_encoded, NX_SMTP_CANCEL_AUTHENTICATION,  sizeof(NX_SMTP_CANCEL_AUTHENTICATION)); /* Use case of memcpy is verified. */
     }
 
     if (_nx_utility_string_length_check((CHAR *)auth_reply_encoded, &length, sizeof(auth_reply_encoded) - 1))
@@ -2048,9 +2096,9 @@ UINT     password_length;
     }
 
     /* Format the encoded response.  */
-    memcpy(&_nx_smtp_buffer[0],auth_reply_encoded, length);
+    memcpy(&_nx_smtp_buffer[0],auth_reply_encoded, length); /* Use case of memcpy is verified. */
     index = length;
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the response back to the server.  */
@@ -2074,7 +2122,7 @@ UINT     password_length;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_auth_challenge                         PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2106,6 +2154,8 @@ UINT     password_length;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_auth_challenge(NX_SMTP_CLIENT *client_ptr)
@@ -2127,7 +2177,7 @@ UINT status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_mail                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2145,6 +2195,7 @@ UINT status;
 /*                                                                        */
 /*    NX_SUCCESS                            Successful completion status  */
 /*    status                                Actual completion status      */ 
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLS                                                                 */
 /*                                                                        */
@@ -2159,6 +2210,9 @@ UINT status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_mail(NX_SMTP_CLIENT *client_ptr)
@@ -2194,17 +2248,17 @@ NX_SMTP_CLIENT_MAIL *mail_ptr = &client_ptr -> nx_smtp_client_mail;
     }
 
     /* Create the command text.  */
-    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_MAIL, sizeof(NX_SMTP_COMMAND_MAIL) - 1);
+    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_MAIL, sizeof(NX_SMTP_COMMAND_MAIL) - 1); /* Use case of memcpy is verified. */
     index = sizeof(NX_SMTP_COMMAND_MAIL) - 1;
 
     _nx_smtp_buffer[index++] = ':';
     _nx_smtp_buffer[index++] = '<';
-    memcpy(&_nx_smtp_buffer[index], mail_ptr -> nx_smtp_client_mail_from_address, mail_from_length);
+    memcpy(&_nx_smtp_buffer[index], mail_ptr -> nx_smtp_client_mail_from_address, mail_from_length); /* Use case of memcpy is verified. */
     index += mail_from_length; 
     _nx_smtp_buffer[index++] = '>';
 
     _nx_smtp_buffer[index++] = ' ';
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the session command we constructed above.  */
@@ -2231,7 +2285,7 @@ NX_SMTP_CLIENT_MAIL *mail_ptr = &client_ptr -> nx_smtp_client_mail;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_mail                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2265,6 +2319,8 @@ NX_SMTP_CLIENT_MAIL *mail_ptr = &client_ptr -> nx_smtp_client_mail;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_mail(NX_SMTP_CLIENT *client_ptr)
@@ -2315,7 +2371,7 @@ UINT  status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_rcpt                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2337,6 +2393,7 @@ UINT  status;
 /*  CALLS                                                                 */
 /*                                                                        */
 /*    _nx_smtp_utility_send_to_server       Send data to server           */
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLED BY                                                             */
 /*                                                                        */
@@ -2347,6 +2404,9 @@ UINT  status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_rcpt(NX_SMTP_CLIENT *client_ptr)
@@ -2376,17 +2436,17 @@ NX_SMTP_CLIENT_MAIL         *mail_ptr;
     }
 
     /* Create the command text.  */
-    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_RCPT, sizeof(NX_SMTP_COMMAND_RCPT) - 1);
+    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_RCPT, sizeof(NX_SMTP_COMMAND_RCPT) - 1); /* Use case of memcpy is verified. */
     index = sizeof(NX_SMTP_COMMAND_RCPT) - 1; 
 
     _nx_smtp_buffer[index++] = ':';
     _nx_smtp_buffer[index++] = '<';
-    memcpy(&_nx_smtp_buffer[index],  mail_ptr -> nx_smtp_client_mail_recipient_address,
+    memcpy(&_nx_smtp_buffer[index],  mail_ptr -> nx_smtp_client_mail_recipient_address, /* Use case of memcpy is verified. */
            recipient_length);
     index += recipient_length;
     _nx_smtp_buffer[index++] = '>';
     _nx_smtp_buffer[index++] = ' ';
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the RCPT command.  */
@@ -2412,7 +2472,7 @@ NX_SMTP_CLIENT_MAIL         *mail_ptr;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_rcpt                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2444,6 +2504,8 @@ NX_SMTP_CLIENT_MAIL         *mail_ptr;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_rcpt(NX_SMTP_CLIENT *client_ptr)
@@ -2492,7 +2554,7 @@ UINT  status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_data                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2514,6 +2576,7 @@ UINT  status;
 /*  CALLS                                                                 */
 /*                                                                        */
 /*    _nx_smtp_utility_send_to_server       Send SMTP commend to server   */
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLED BY                                                             */
 /*                                                                        */
@@ -2524,6 +2587,9 @@ UINT  status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_data(NX_SMTP_CLIENT *client_ptr)
@@ -2536,9 +2602,9 @@ UINT     index;
     memset(_nx_smtp_buffer, 0, NX_SMTP_BUFFER_SIZE);
 
     /* Format the DATA command.  */
-    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_DATA, sizeof(NX_SMTP_COMMAND_DATA) - 1);
+    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_DATA, sizeof(NX_SMTP_COMMAND_DATA) - 1); /* Use case of memcpy is verified. */
     index = sizeof(NX_SMTP_COMMAND_DATA) - 1;
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the DATA command.  */
@@ -2564,7 +2630,7 @@ UINT     index;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_data                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2596,6 +2662,8 @@ UINT     index;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_data(NX_SMTP_CLIENT *client_ptr)
@@ -2644,7 +2712,7 @@ UINT            status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_message                                PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2677,6 +2745,8 @@ UINT            status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_message(NX_SMTP_CLIENT *client_ptr)
@@ -2771,7 +2841,7 @@ NX_SMTP_CLIENT_MAIL         *mail_ptr;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_message                                PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2809,6 +2879,8 @@ NX_SMTP_CLIENT_MAIL         *mail_ptr;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_message(NX_SMTP_CLIENT *client_ptr)
@@ -2858,7 +2930,7 @@ UINT     status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_quit                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2880,6 +2952,7 @@ UINT     status;
 /*  CALLS                                                                 */
 /*                                                                        */
 /*    _nx_smtp_utility_send_to_server       Send data to server           */
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLED BY                                                             */
 /*                                                                        */
@@ -2890,6 +2963,9 @@ UINT     status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_quit(NX_SMTP_CLIENT *client_ptr)
@@ -2902,9 +2978,9 @@ UINT     index;
     memset(_nx_smtp_buffer, 0, NX_SMTP_BUFFER_SIZE);
 
     /* Format the QUIT command.  */
-    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_QUIT, sizeof(NX_SMTP_COMMAND_QUIT) - 1);
+    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_QUIT, sizeof(NX_SMTP_COMMAND_QUIT) - 1); /* Use case of memcpy is verified. */
     index = sizeof(NX_SMTP_COMMAND_QUIT) - 1;
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR));
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR)); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the QUIT command.  */
@@ -2931,7 +3007,7 @@ UINT     index;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_quit                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2963,6 +3039,8 @@ UINT     index;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_quit(NX_SMTP_CLIENT *client_ptr)
@@ -3000,7 +3078,7 @@ UINT    status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_rset                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3021,6 +3099,7 @@ UINT    status;
 /*  CALLS                                                                 */
 /*                                                                        */
 /*    _nx_smtp_utility_send_to_server       Send data to server           */
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLED BY                                                             */
 /*                                                                        */
@@ -3031,6 +3110,9 @@ UINT    status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_rset(NX_SMTP_CLIENT *client_ptr)
@@ -3047,9 +3129,9 @@ UINT     index;
     timeout =  NX_SMTP_ENVELOPE_TIMEOUT;
 
     /* Format the RSET command.  */
-    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_RSET, sizeof(NX_SMTP_COMMAND_RSET) - 1);
+    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_RSET, sizeof(NX_SMTP_COMMAND_RSET) - 1); /* Use case of memcpy is verified. */
     index = sizeof(NX_SMTP_COMMAND_RSET) - 1;
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof( NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the RSET command.  */
@@ -3075,7 +3157,7 @@ UINT     index;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_rset                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3109,6 +3191,8 @@ UINT     index;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_rset(NX_SMTP_CLIENT *client_ptr)
@@ -3156,7 +3240,7 @@ UINT  status;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_cmd_noop                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3177,6 +3261,7 @@ UINT  status;
 /*  CALLS                                                                 */
 /*                                                                        */
 /*    _nx_smtp_utility_send_to_server       Send data to server           */
+/*    memcpy                                Copy data to area of memory   */
 /*                                                                        */
 /*  CALLED BY                                                             */
 /*                                                                        */
@@ -3187,6 +3272,9 @@ UINT  status;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_cmd_noop(NX_SMTP_CLIENT *client_ptr)
@@ -3199,9 +3287,9 @@ UINT     index;
     memset(_nx_smtp_buffer, 0, NX_SMTP_BUFFER_SIZE);
 
     /* Format the NOOP command.  */
-    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_NOOP, sizeof(NX_SMTP_COMMAND_NOOP) - 1);
+    memcpy(&_nx_smtp_buffer[0], NX_SMTP_COMMAND_NOOP, sizeof(NX_SMTP_COMMAND_NOOP) - 1); /* Use case of memcpy is verified. */
     index = sizeof(NX_SMTP_COMMAND_NOOP) - 1;
-    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1);
+    memcpy(&_nx_smtp_buffer[index],  NX_SMTP_LINE_TERMINATOR, sizeof(NX_SMTP_LINE_TERMINATOR) - 1); /* Use case of memcpy is verified. */
     index += sizeof(NX_SMTP_LINE_TERMINATOR) - 1;
 
     /* Send the NOOP command.  */
@@ -3228,7 +3316,7 @@ UINT     index;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_rsp_noop                                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3262,6 +3350,8 @@ UINT     index;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_rsp_noop(NX_SMTP_CLIENT *client_ptr)
@@ -3305,7 +3395,7 @@ UINT              first_digit_server_reply;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_utility_read_server_code                   PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3346,6 +3436,8 @@ UINT              first_digit_server_reply;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_utility_read_server_code(NX_SMTP_CLIENT *client_ptr, ULONG timeout, UINT  receive_all_lines)     
@@ -3439,7 +3531,7 @@ UINT         buffer_length;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_utility_send_to_server                     PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3480,6 +3572,8 @@ UINT         buffer_length;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_utility_send_to_server(NX_SMTP_CLIENT *client_ptr, CHAR *buffer_ptr, UINT buffer_length, ULONG timeout) 
@@ -3560,7 +3654,7 @@ UINT            packet_type;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_utility_send_to_server                     PORTABLE C      */ 
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3601,6 +3695,8 @@ UINT            packet_type;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_utility_send_header_to_server(NX_SMTP_CLIENT *client_ptr, ULONG timeout) 
@@ -3716,7 +3812,7 @@ UINT                 subject_length;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_utility_authentication_challenge           PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3754,6 +3850,8 @@ UINT                 subject_length;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_utility_authentication_challenge(NX_SMTP_CLIENT *client_ptr, UCHAR *server_challenge, UINT length)
@@ -3839,7 +3937,7 @@ UCHAR  decoded_server_prompt[NX_SMTP_SERVER_CHALLENGE_MAX_STRING + 1];
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_utility_parse_server_services              PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -3874,6 +3972,8 @@ UCHAR  decoded_server_prompt[NX_SMTP_SERVER_CHALLENGE_MAX_STRING + 1];
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_utility_parse_server_services(NX_SMTP_CLIENT *client_ptr)
@@ -4042,7 +4142,7 @@ UINT   found = NX_FALSE;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_parse_response                             PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -4090,6 +4190,8 @@ UINT   found = NX_FALSE;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_smtp_parse_response(NX_SMTP_CLIENT *client_ptr, UCHAR *buffer, UINT argument_index, 
@@ -4280,7 +4382,7 @@ UINT is_last_code;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_parse_250_response                         PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -4311,6 +4413,8 @@ UINT is_last_code;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT _nx_smtp_parse_250_response(UCHAR *buffer_ptr, UINT buffer_length, UINT *is_last_code)
@@ -4347,7 +4451,7 @@ UINT _nx_smtp_parse_250_response(UCHAR *buffer_ptr, UINT buffer_length, UINT *is
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_find_crlf                                  PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -4384,6 +4488,8 @@ UINT _nx_smtp_parse_250_response(UCHAR *buffer_ptr, UINT buffer_length, UINT *is
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 VOID  _nx_smtp_find_crlf(UCHAR *buffer, UINT length, UCHAR **CRLF, UINT in_reverse)
@@ -4451,7 +4557,7 @@ CHAR    _nx_smtp_base64_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrs
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_smtp_base64_encode                              PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -4485,6 +4591,8 @@ CHAR    _nx_smtp_base64_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrs
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 VOID  _nx_smtp_base64_encode(UCHAR *name, UCHAR *base64name, UINT length)
@@ -4577,7 +4685,7 @@ UINT    step;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_smtp_base64_decode                              PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -4611,6 +4719,8 @@ UINT    step;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 VOID  _nx_smtp_base64_decode(UCHAR *base64name, UCHAR *name)

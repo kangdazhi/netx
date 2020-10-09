@@ -29,7 +29,7 @@ set(SOURCES
 )
 
 # Append BSD file if the user wants it
-if(NXD_ENABLE_FILE_BSD)
+if(NXD_ENABLE_BSD)
     list(APPEND SOURCES
          ${CMAKE_CURRENT_LIST_DIR}/BSD/nx_bsd.c
     )

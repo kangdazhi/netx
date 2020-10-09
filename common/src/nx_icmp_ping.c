@@ -37,7 +37,7 @@
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_icmp_ping                                       PORTABLE C      */
-/*                                                           6.0          */
+/*                                                           6.1          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -85,6 +85,9 @@
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
+/*  09-30-2020     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memcpy use cases,  */
+/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_icmp_ping(NX_IP *ip_ptr, ULONG ip_address,
@@ -168,7 +171,7 @@ ULONG checksum;
     header_ptr -> nx_icmp_header_word_1 =  (ULONG)(request_ptr -> nx_packet_ip_interface -> nx_interface_ip_address << 16) | sequence;
 
     /* Copy the data into the packet payload area.  */
-    memcpy(request_ptr -> nx_packet_prepend_ptr + sizeof(NX_ICMP_HEADER), data_ptr, data_size);
+    memcpy(request_ptr -> nx_packet_prepend_ptr + sizeof(NX_ICMP_HEADER), data_ptr, data_size); /* Use case of memcpy is verified. */
 
     /* If NX_LITTLE_ENDIAN is defined, the headers need to be swapped to match
        that of the data area.  */
