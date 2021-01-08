@@ -65,7 +65,7 @@ static UINT        _nx_dns_process_a_type(NX_DNS *dns_ptr, NX_PACKET *packet_ptr
 static UINT        _nx_dns_process_aaaa_type(NX_DNS *dns_ptr, NX_PACKET *packet_ptr, UCHAR *data_ptr, UCHAR **buffer_prepend_ptr, UCHAR **buffer_append_ptr, UINT *record_count, UINT rr_location);
    
 #ifdef NX_DNS_ENABLE_EXTENDED_RR_TYPES 
-static UINT        _nx_dns_resource_name_real_size_calculate(UCHAR *data, UINT start);
+static UINT        _nx_dns_resource_name_real_size_calculate(UCHAR *data, UINT start, UINT data_length);
 static UINT        _nx_dns_process_cname_type(NX_DNS *dns_ptr, NX_PACKET *packet_ptr, UCHAR *data_ptr, UCHAR *record_buffer, UINT buffer_size, UINT *record_count);
 static UINT        _nx_dns_process_txt_type(NX_DNS *dns_ptr, NX_PACKET *packet_ptr, UCHAR *data_ptr, UCHAR *record_buffer, UINT buffer_size, UINT *record_count);
 static UINT        _nx_dns_process_ns_type(NX_DNS *dns_ptr, NX_PACKET *packet_ptr, UCHAR *data_ptr, UCHAR **buffer_prepend_ptr, UCHAR **buffer_append_ptr, UINT *record_count);
@@ -5164,7 +5164,7 @@ ULONG           rr_ttl;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_dns_process_ns_type                              PORTABLE C     */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -5211,6 +5211,10 @@ ULONG           rr_ttl;
 /*                                            updated resource get APIs to*/
 /*                                            improve buffer bound check, */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Updated input parameter of the*/
+/*                                            API to get the real size of */
+/*                                            resource name, resulting in */
+/*                                            version 6.1.3               */
 /*                                                                        */
 /**************************************************************************/
 static UINT _nx_dns_process_ns_type(NX_DNS *dns_ptr, NX_PACKET *packet_ptr, UCHAR *data_ptr, 
@@ -5280,7 +5284,7 @@ ULONG               rr_ttl;
     }
 
     /* Get the real size of the name, and set the name buffer size.*/
-    name_buffer_size = _nx_dns_resource_name_real_size_calculate(packet_ptr -> nx_packet_prepend_ptr, (UINT)(data_ptr - packet_ptr -> nx_packet_prepend_ptr));
+    name_buffer_size = _nx_dns_resource_name_real_size_calculate(packet_ptr -> nx_packet_prepend_ptr, (UINT)(data_ptr - packet_ptr -> nx_packet_prepend_ptr), packet_ptr -> nx_packet_length);
 
     /* Check the buffer space.  */
     if ((*buffer_append_ptr - name_buffer_size - 1 ) < (*buffer_prepend_ptr + sizeof(NX_DNS_NS_ENTRY)))
@@ -5367,7 +5371,7 @@ ULONG               rr_ttl;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_dns_process_mx_type                              PORTABLE C     */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -5415,6 +5419,10 @@ ULONG               rr_ttl;
 /*                                            updated resource get APIs to*/
 /*                                            improve buffer bound check, */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Updated input parameter of the*/
+/*                                            API to get the real size of */
+/*                                            resource name, resulting in */
+/*                                            version 6.1.3               */
 /*                                                                        */
 /**************************************************************************/
 static UINT _nx_dns_process_mx_type(NX_DNS *dns_ptr, NX_PACKET *packet_ptr, UCHAR *data_ptr, 
@@ -5493,7 +5501,7 @@ UINT                size;
     data_ptr += 2;
 
     /* Get the real size of the name, and set the name buffer size.*/
-    name_buffer_size = _nx_dns_resource_name_real_size_calculate(packet_ptr -> nx_packet_prepend_ptr, (UINT)(data_ptr - packet_ptr -> nx_packet_prepend_ptr));
+    name_buffer_size = _nx_dns_resource_name_real_size_calculate(packet_ptr -> nx_packet_prepend_ptr, (UINT)(data_ptr - packet_ptr -> nx_packet_prepend_ptr), packet_ptr -> nx_packet_length);
 
     /* Check the buffer space.  */
     if ((*buffer_append_ptr - name_buffer_size - 1 ) < (*buffer_prepend_ptr + sizeof(NX_DNS_MX_ENTRY)))
@@ -5598,7 +5606,7 @@ UINT                size;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_dns_process_srv_type                             PORTABLE C     */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -5646,6 +5654,10 @@ UINT                size;
 /*                                            updated resource get APIs to*/
 /*                                            improve buffer bound check, */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Updated input parameter of the*/
+/*                                            API to get the real size of */
+/*                                            resource name, resulting in */
+/*                                            version 6.1.3               */
 /*                                                                        */
 /**************************************************************************/
 static UINT _nx_dns_process_srv_type(NX_DNS *dns_ptr, NX_PACKET *packet_ptr, UCHAR *data_ptr, UCHAR **buffer_prepend_ptr, 
@@ -5737,7 +5749,7 @@ UINT                size;
     data_ptr += 2;
 
     /* Get the real size of the name, and set the name buffer size.*/
-    name_buffer_size = _nx_dns_resource_name_real_size_calculate(packet_ptr -> nx_packet_prepend_ptr, (UINT)(data_ptr - packet_ptr -> nx_packet_prepend_ptr));
+    name_buffer_size = _nx_dns_resource_name_real_size_calculate(packet_ptr -> nx_packet_prepend_ptr, (UINT)(data_ptr - packet_ptr -> nx_packet_prepend_ptr), packet_ptr -> nx_packet_length);
 
     /* Check the buffer space.  */
     if ((*buffer_append_ptr - name_buffer_size - 1 ) < (*buffer_prepend_ptr + sizeof(NX_DNS_MX_ENTRY)))
@@ -6814,7 +6826,7 @@ UINT    count =  1;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_dns_name_string_unencode                        PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -6852,6 +6864,10 @@ UINT    count =  1;
 /*  09-30-2020     Yuxin Zhou               Modified comment(s), improved */
 /*                                            compression pointer check,  */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Modified comment(s), prevented*/
+/*                                            infinite loop in name       */
+/*                                            compression, resulting in   */
+/*                                            version 6.1.3               */
 /*                                                                        */
 /**************************************************************************/
 static UINT _nx_dns_name_string_unencode(NX_PACKET *packet_ptr, UCHAR *data, UCHAR *buffer, UINT buffer_size)
@@ -6862,7 +6878,8 @@ UCHAR   *message_start;
 UINT    label_size;
 UINT    offset;
 UINT    length;
-  
+UINT    pointer_count = 0;
+
     /* Initialize the value.  */
     character = data;
     message_start = packet_ptr -> nx_packet_prepend_ptr;
@@ -6924,6 +6941,14 @@ UINT    length;
                     }
                     else
                     {
+                        /* Prevent infinite loop with compression pointers. */
+                        pointer_count++;
+                        if (pointer_count > NX_DNS_MAX_COMPRESSION_POINTERS)
+                        {
+
+                            /* This is malformed packet.  */
+                            return(0);
+                        }
                         /* update valid pointer */
                         character =  message_start + offset;
                     }
@@ -7060,7 +7085,7 @@ UINT size =  0;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_dns_resource_name_real_size_calculate           PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -7073,6 +7098,7 @@ UINT size =  0;
 /*                                                                        */ 
 /*    data                                  Pointer to buffer to decode   */ 
 /*    start                                 Location of start of data     */ 
+/*    data_length                           Data buffer length            */
 /*                                                                        */ 
 /*  OUTPUT                                                                */ 
 /*                                                                        */ 
@@ -7094,14 +7120,20 @@ UINT size =  0;
 /*  09-30-2020     Yuxin Zhou               Modified comment(s), improved */
 /*                                            compression pointer check,  */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Modified comment(s), improved */
+/*                                            pointer check, prevented    */
+/*                                            infinite loop in name       */
+/*                                            compression, resulting in   */
+/*                                            version 6.1.3               */
 /*                                                                        */
 /**************************************************************************/
-static UINT    _nx_dns_resource_name_real_size_calculate(UCHAR *data, UINT start)
+static UINT    _nx_dns_resource_name_real_size_calculate(UCHAR *data, UINT start, UINT data_length)
 {
 
 UCHAR   *character =  data + start;
 UINT    length = 0;
-
+UINT    offset;
+UINT    pointer_count = 0;
   
     /* As long as there is space in the buffer and we haven't 
        found a zero terminating label */
@@ -7128,8 +7160,18 @@ UINT    length = 0;
         else if ((labelSize & NX_DNS_COMPRESS_MASK) == NX_DNS_COMPRESS_VALUE)
         {
 
+            /* Get the offset.  */
+            offset = ((labelSize & NX_DNS_LABEL_MAX) << 8) + *character;
+
+            /* Check the offset.  */
+            if (offset >= data_length)
+            {
+
+                return(0);
+            }
+
             /* This is a pointer, just adjust the source.  */
-            if (character ==  data + ((labelSize & NX_DNS_LABEL_MAX) << 8) + *character)
+            if (character ==  data + offset)
             {
                 /* If compression pointer equals the same offset currently being parsed,
                    it could lead to an infinite loop. */
@@ -7137,8 +7179,19 @@ UINT    length = 0;
             }
             else
             {
+
+                /* Prevent infinite loop with compression pointers. */
+                pointer_count++;
+
+                if (pointer_count > NX_DNS_MAX_COMPRESSION_POINTERS)
+                {
+
+                    /* This is malformed packet.  */
+                    return(0);
+                }
+
                 /* update valid pointer */
-                character =  data + ((labelSize & NX_DNS_LABEL_MAX) << 8) + *character;   
+                character =  data + offset;
             }
         }
         else
@@ -7148,9 +7201,12 @@ UINT    length = 0;
             return(0);
         }
     }
-    
+
     /* Reduce the last '.' string, update the length.  */
-    length --;
+    if (length)
+    {
+        length --;
+    }
 
     /* Return name size.  */
     return(length);

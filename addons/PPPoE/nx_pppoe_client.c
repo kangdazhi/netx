@@ -608,7 +608,7 @@ UINT    status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_pppoe_client_service_name_set_extended          PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -649,6 +649,9 @@ UINT    status;
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Modified comment(s), improved */
+/*                                            string length verification, */
+/*                                            resulting in version 6.1.3  */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_pppoe_client_service_name_set_extended(NX_PPPOE_CLIENT *pppoe_client_ptr, UCHAR *service_name, UINT service_name_length)
@@ -669,6 +672,9 @@ UINT temp_service_name_length = 0;
 
     /* Setup service name pointer.  */
     pppoe_client_ptr -> nx_pppoe_service_name = service_name;
+
+    /* Setup service name length.  */
+    pppoe_client_ptr -> nx_pppoe_service_name_length = service_name_length;
 
     /* Release the IP internal mutex.  */
     tx_mutex_put(&(pppoe_client_ptr -> nx_pppoe_ip_ptr -> nx_ip_protection));
@@ -868,7 +874,7 @@ UINT    status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_pppoe_client_host_uniq_set_extended             PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -909,6 +915,9 @@ UINT    status;
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Modified comment(s), improved */
+/*                                            string length verification, */
+/*                                            resulting in version 6.1.3  */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_pppoe_client_host_uniq_set_extended(NX_PPPOE_CLIENT *pppoe_client_ptr, UCHAR *host_uniq, UINT host_uniq_length)
@@ -926,8 +935,11 @@ UINT temp_host_uniq_length = 0;
     /* Obtain the IP internal mutex before processing the IP event.  */
     tx_mutex_get(&(pppoe_client_ptr -> nx_pppoe_ip_ptr -> nx_ip_protection), TX_WAIT_FOREVER);
 
-    /* Setup service name pointer.  */
+    /* Setup host unique pointer.  */
     pppoe_client_ptr -> nx_pppoe_host_uniq = host_uniq;
+    
+    /* Setup host unique length.  */
+    pppoe_client_ptr -> nx_pppoe_host_uniq_length = host_uniq_length;
 
     /* Release the IP internal mutex.  */
     tx_mutex_put(&(pppoe_client_ptr -> nx_pppoe_ip_ptr -> nx_ip_protection));
@@ -2157,7 +2169,7 @@ UINT                        ethernet_type;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_pppoe_client_discovery_packet_process           PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2200,6 +2212,9 @@ UINT                        ethernet_type;
 /*                                            packet length verification, */
 /*                                            verified memcpy use cases,  */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Modified comment(s), improved */
+/*                                            string length verification, */
+/*                                            resulting in version 6.1.3  */
 /*                                                                        */
 /**************************************************************************/
 VOID  _nx_pppoe_client_discovery_packet_process(NX_PPPOE_CLIENT *pppoe_client_ptr, NX_PACKET *packet_ptr, ULONG server_mac_msw, ULONG server_mac_lsw)
@@ -2364,7 +2379,8 @@ UINT                        tag_host_uniq_valid = NX_FALSE;
                 {
 
                     /* Compare the service name with PPPoE Service name that Client is requesting.  */
-                    if (!memcmp(tag_ptr + tag_index, pppoe_client_ptr -> nx_pppoe_service_name, tag_length))
+                    if ((pppoe_client_ptr -> nx_pppoe_service_name_length == tag_length) &&
+                        (!memcmp(tag_ptr + tag_index, pppoe_client_ptr -> nx_pppoe_service_name, tag_length)))
                     {
 
                         /* Update the information.  */
@@ -2404,7 +2420,8 @@ UINT                        tag_host_uniq_valid = NX_FALSE;
                 tag_host_uniq_count ++;
 
                 /* Check the Host-Uniq.  */
-                if (!memcmp(tag_ptr + tag_index, pppoe_client_ptr -> nx_pppoe_host_uniq, tag_length))
+                if ((pppoe_client_ptr -> nx_pppoe_host_uniq_length == tag_length) &&
+                    (!memcmp(tag_ptr + tag_index, pppoe_client_ptr -> nx_pppoe_host_uniq, tag_length)))
                 {
 
                     /* Update the information.  */
@@ -2751,7 +2768,7 @@ NX_PPPOE_SERVER_SESSION    *server_session_ptr;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_pppoe_client_discovery_send                     PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.3        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2793,6 +2810,9 @@ NX_PPPOE_SERVER_SESSION    *server_session_ptr;
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  12-31-2020     Yuxin Zhou               Modified comment(s), improved */
+/*                                            string length verification, */
+/*                                            resulting in version 6.1.3  */
 /*                                                                        */
 /**************************************************************************/
 static UINT    _nx_pppoe_client_discovery_send(NX_PPPOE_CLIENT *pppoe_client_ptr, UINT code)
@@ -2803,7 +2823,6 @@ NX_PACKET       *packet_ptr;
 UCHAR           *work_ptr;      
 UINT            status;  
 UINT            index = 0;
-UINT            tag_length;
 
 
     /* Allocate a PPPoE packet.  */
@@ -2843,21 +2862,12 @@ UINT            tag_length;
         if (pppoe_client_ptr -> nx_pppoe_service_name)
         {
 
-            /* Calculate the name length.  */
-            if (_nx_utility_string_length_check((char *)(pppoe_client_ptr -> nx_pppoe_service_name), &tag_length, NX_MAX_STRING_LENGTH))
-            {
-
-                /* Packet too small. */
-                nx_packet_release(packet_ptr);
-                return(NX_PPPOE_CLIENT_SERVICE_NAME_ERROR);
-            }
-
             if (((ULONG)(packet_ptr -> nx_packet_data_end) - (ULONG)(&work_ptr[index])) >=
-                (4 + tag_length))
+                (4 + pppoe_client_ptr -> nx_pppoe_service_name_length))
             {
 
                 /* Added the Service-Name tag.  */
-                _nx_pppoe_client_tag_string_add(work_ptr, NX_PPPOE_CLIENT_TAG_TYPE_SERVICE_NAME, tag_length, pppoe_client_ptr -> nx_pppoe_service_name, &index);
+                _nx_pppoe_client_tag_string_add(work_ptr, NX_PPPOE_CLIENT_TAG_TYPE_SERVICE_NAME, pppoe_client_ptr -> nx_pppoe_service_name_length, pppoe_client_ptr -> nx_pppoe_service_name, &index);
             }
             else
             {
@@ -2878,21 +2888,12 @@ UINT            tag_length;
         if (pppoe_client_ptr -> nx_pppoe_host_uniq)
         {
 
-            /* Calculate the name length.  */
-            if (_nx_utility_string_length_check((char *)(pppoe_client_ptr -> nx_pppoe_host_uniq), &tag_length, NX_MAX_STRING_LENGTH))
-            {
-
-                /* Packet too small. */
-                nx_packet_release(packet_ptr);
-                return(NX_PPPOE_CLIENT_PACKET_PAYLOAD_ERROR);
-            }
-
             if (((ULONG)(packet_ptr -> nx_packet_data_end) - (ULONG)(&work_ptr[index])) >=
-                (4 + tag_length))
+                (4 + pppoe_client_ptr -> nx_pppoe_host_uniq_length))
             {
 
                 /* Added the Host-Uniq tag.  */
-                _nx_pppoe_client_tag_string_add(work_ptr, NX_PPPOE_CLIENT_TAG_TYPE_HOST_UNIQ, tag_length, pppoe_client_ptr -> nx_pppoe_host_uniq, &index);
+                _nx_pppoe_client_tag_string_add(work_ptr, NX_PPPOE_CLIENT_TAG_TYPE_HOST_UNIQ, pppoe_client_ptr -> nx_pppoe_host_uniq_length, pppoe_client_ptr -> nx_pppoe_host_uniq, &index);
             }
             else
             {
@@ -2911,22 +2912,12 @@ UINT            tag_length;
         if (pppoe_client_ptr -> nx_pppoe_service_name)
         {
 
-
-            /* Calculate the name length.  */
-            if (_nx_utility_string_length_check((char *)(pppoe_client_ptr -> nx_pppoe_service_name), &tag_length, NX_MAX_STRING_LENGTH))
-            {
-
-                /* Packet too small. */
-                nx_packet_release(packet_ptr);
-                return(NX_PPPOE_CLIENT_SERVICE_NAME_ERROR);
-            }
-
             if (((ULONG)(packet_ptr -> nx_packet_data_end) - (ULONG)(&work_ptr[index])) >=
-                (4 + tag_length))
+                (4 + pppoe_client_ptr -> nx_pppoe_service_name_length))
             {
                 
                 /* Added the Service-Name tag.  */
-                _nx_pppoe_client_tag_string_add(work_ptr, NX_PPPOE_CLIENT_TAG_TYPE_SERVICE_NAME, tag_length, pppoe_client_ptr -> nx_pppoe_service_name, &index);
+                _nx_pppoe_client_tag_string_add(work_ptr, NX_PPPOE_CLIENT_TAG_TYPE_SERVICE_NAME, pppoe_client_ptr -> nx_pppoe_service_name_length, pppoe_client_ptr -> nx_pppoe_service_name, &index);
             }
             else
             {
@@ -2947,21 +2938,12 @@ UINT            tag_length;
         if (pppoe_client_ptr -> nx_pppoe_host_uniq)
         {
 
-            /* Calculate the name length.  */
-            if (_nx_utility_string_length_check((char *)(pppoe_client_ptr -> nx_pppoe_host_uniq), &tag_length, NX_MAX_STRING_LENGTH))
-            {
-
-                /* Packet too small. */
-                nx_packet_release(packet_ptr);
-                return(NX_PPPOE_CLIENT_PACKET_PAYLOAD_ERROR);
-            }
-
             if (((ULONG)(packet_ptr -> nx_packet_data_end) - (ULONG)(&work_ptr[index])) >=
-                (4 + tag_length))
+                (4 + pppoe_client_ptr -> nx_pppoe_host_uniq_length))
             {
 
                 /* Added the Host-Uniq tag.  */
-                _nx_pppoe_client_tag_string_add(work_ptr, NX_PPPOE_CLIENT_TAG_TYPE_HOST_UNIQ, tag_length, pppoe_client_ptr -> nx_pppoe_host_uniq, &index);
+                _nx_pppoe_client_tag_string_add(work_ptr, NX_PPPOE_CLIENT_TAG_TYPE_HOST_UNIQ, pppoe_client_ptr -> nx_pppoe_host_uniq_length, pppoe_client_ptr -> nx_pppoe_host_uniq, &index);
             }
             else
             {
