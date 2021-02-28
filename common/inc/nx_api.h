@@ -26,7 +26,7 @@
 /*  APPLICATION INTERFACE DEFINITION                       RELEASE        */
 /*                                                                        */
 /*    nx_api.h                                            PORTABLE C      */
-/*                                                           6.1.4        */
+/*                                                           6.1.5        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -60,6 +60,9 @@
 /*  02-02-2021     Yuxin Zhou               Modified comment(s), and      */
 /*                                            updated product constants,  */
 /*                                            resulting in version 6.1.4  */
+/*  03-02-2021     Yuxin Zhou               Modified comment(s), and      */
+/*                                            updated product constants,  */
+/*                                            resulting in version 6.1.5  */
 /*                                                                        */
 /**************************************************************************/
 
@@ -368,7 +371,7 @@ VOID _nx_trace_event_update(TX_TRACE_BUFFER_ENTRY *event, ULONG timestamp, ULONG
 #define AZURE_RTOS_NETX
 #define NETX_MAJOR_VERSION        6
 #define NETX_MINOR_VERSION        1
-#define NETX_PATCH_VERSION        4
+#define NETX_PATCH_VERSION        5
 
 /* The following symbols are defined for backward compatibility reasons.*/
 #define EL_PRODUCT_NETX
