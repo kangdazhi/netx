@@ -5791,7 +5791,7 @@ NX_PACKET   *last_packet;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_ftp_server_number_to_ascii                      PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.7        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -5827,6 +5827,9 @@ NX_PACKET   *last_packet;
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  06-02-2021     Yuxin Zhou               Modified comment(s), and      */
+/*                                            corrected the size check,   */
+/*                                            resulting in version 6.1.7  */
 /*                                                                        */
 /**************************************************************************/
 static VOID _nx_ftp_server_number_to_ascii(UCHAR *buffer_ptr, UINT buffer_size, UINT number)
@@ -5841,7 +5844,7 @@ UINT    size;
     memset(buffer_ptr, ' ', buffer_size);
 
     /* Loop to convert the number to ASCII.  */
-    while (size < buffer_size)
+    while (size <= buffer_size)
     {
 
         /* Compute the next decimal digit.  */
