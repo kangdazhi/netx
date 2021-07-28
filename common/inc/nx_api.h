@@ -26,7 +26,7 @@
 /*  APPLICATION INTERFACE DEFINITION                       RELEASE        */
 /*                                                                        */
 /*    nx_api.h                                            PORTABLE C      */
-/*                                                           6.1.7        */
+/*                                                           6.1.8        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -69,6 +69,10 @@
 /*  06-02-2021     Yuxin Zhou               Modified comment(s), and      */
 /*                                            updated product constants,  */
 /*                                            resulting in version 6.1.7  */
+/*  08-02-2021     Yuxin Zhou               Modified comment(s), and      */
+/*                                            added function to convert   */
+/*                                            unsigned integer to string, */
+/*                                            resulting in version 6.1.8  */
 /*                                                                        */
 /**************************************************************************/
 
@@ -377,7 +381,7 @@ VOID _nx_trace_event_update(TX_TRACE_BUFFER_ENTRY *event, ULONG timestamp, ULONG
 #define AZURE_RTOS_NETX
 #define NETX_MAJOR_VERSION        6
 #define NETX_MINOR_VERSION        1
-#define NETX_PATCH_VERSION        7
+#define NETX_PATCH_VERSION        8
 
 /* The following symbols are defined for backward compatibility reasons.*/
 #define EL_PRODUCT_NETX
@@ -2386,6 +2390,7 @@ VOID _nx_ip_driver_link_status_event(NX_IP *ip_ptr, UINT interface_index);
 /* Utility functions.  */
 UINT _nx_utility_string_length_check(CHAR *input_string, UINT *string_length, UINT max_string_length);
 UINT _nx_utility_string_to_uint(CHAR *input_string, UINT string_length, UINT *number);
+UINT _nx_utility_uint_to_string(UINT number, UINT base, CHAR *string_buffer, UINT string_buffer_size);
 UINT _nx_utility_base64_encode(UCHAR *name, UINT name_size, UCHAR *base64name, UINT base64name_size, UINT *bytes_copied);
 UINT _nx_utility_base64_decode(UCHAR *base64name, UINT base64name_size, UCHAR *name, UINT name_size, UINT *bytes_copied);
 
