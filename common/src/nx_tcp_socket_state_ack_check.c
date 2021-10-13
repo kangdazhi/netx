@@ -35,7 +35,7 @@
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_tcp_socket_state_ack_check                      PORTABLE C      */
-/*                                                           6.1          */
+/*                                                           6.1.9        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -73,10 +73,16 @@
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  10-15-2021     Yuxin Zhou               Modified comment(s),          */
+/*                                            fixed the bug of race       */
+/*                                            condition,                  */
+/*                                            resulting in version 6.1.9  */
 /*                                                                        */
 /**************************************************************************/
 VOID  _nx_tcp_socket_state_ack_check(NX_TCP_SOCKET *socket_ptr, NX_TCP_HEADER *tcp_header_ptr)
 {
+
+TX_INTERRUPT_SAVE_AREA
 
 NX_TCP_HEADER *search_header_ptr;
 NX_PACKET     *search_ptr;
@@ -619,6 +625,9 @@ UINT           wrapped_flag =  NX_FALSE;
                next pointer.  */
             search_ptr =  search_ptr -> nx_packet_tcp_queue_next;
 
+            /* Disable interrupts temporarily.  */
+            TX_DISABLE
+
             /* Set the packet to allocated to indicate it is no longer part of the TCP queue.  */
             previous_ptr -> nx_packet_tcp_queue_next =  ((NX_PACKET *)NX_PACKET_ALLOCATED);
 
@@ -629,6 +638,9 @@ UINT           wrapped_flag =  NX_FALSE;
                release it when finished.  */
             if (previous_ptr -> nx_packet_queue_next ==  ((NX_PACKET *)NX_DRIVER_TX_DONE))
             {
+
+                /* Restore interrupts.  */
+                TX_RESTORE
 
                 /* Yes, the driver has already released the packet.  */
 
@@ -656,8 +668,8 @@ UINT           wrapped_flag =  NX_FALSE;
                 /* Simply reset the outstanding bytes. */
                 socket_ptr -> nx_tcp_socket_tx_outstanding_bytes = 0;
 
-                /* Let driver release the packet.  */
-                previous_ptr -> nx_packet_tcp_queue_next = ((NX_PACKET *)NX_PACKET_ALLOCATED);
+                /* Restore interrupts.  */
+                TX_RESTORE
             }
         }
 

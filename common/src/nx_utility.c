@@ -207,7 +207,7 @@ UINT i;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_utility_uint_to_string                          PORTABLE C      */
-/*                                                           6.1.8        */
+/*                                                           6.1.9        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -243,6 +243,9 @@ UINT i;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  08-02-2021     Yuxin Zhou               Initial Version 6.1.8         */
+/*  10-15-2021     Yuxin Zhou               Modified comment(s),          */
+/*                                            checked invalid input value,*/
+/*                                            resulting in version 6.1.9  */
 /*                                                                        */
 /**************************************************************************/
 UINT _nx_utility_uint_to_string(UINT number, UINT base, CHAR *string_buffer, UINT string_buffer_size)
@@ -252,7 +255,7 @@ UINT digit;
 UINT size;
 
     /* Check for invalid input pointers.  */
-    if ((string_buffer == NX_NULL) || (string_buffer_size == 0))
+    if ((string_buffer == NX_NULL) || (string_buffer_size == 0) || (base == 0))
     {
         return(0);
     }
