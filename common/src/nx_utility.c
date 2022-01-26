@@ -472,7 +472,7 @@ UINT    step;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_utility_base64_decode                           PORTABLE C      */
-/*                                                           6.1.6        */
+/*                                                           6.1.10       */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -507,6 +507,10 @@ UINT    step;
 /*    DATE              NAME                      DESCRIPTION             */
 /*                                                                        */
 /*  04-02-2021     Yuxin Zhou               Initial Version 6.1.6         */
+/*  01-31-2022     Yuxin Zhou               Modified comment(s),          */
+/*                                            fixed the issue of reading  */
+/*                                            overflow,                   */
+/*                                            resulting in version 6.1.10 */
 /*                                                                        */
 /**************************************************************************/
 UINT _nx_utility_base64_decode(UCHAR *base64name, UINT base64name_size, UCHAR *name, UINT name_size, UINT *bytes_copied)
@@ -531,13 +535,14 @@ UINT    source_size = base64name_size;
     /* Adjust the length to represent the ASCII name.  */
     base64name_size = ((base64name_size * 6) / 8);
 
-    if (base64name[source_size - 1] == '=')
+    if ((base64name_size) && (base64name[source_size - 1] == '='))
     {
-        if (base64name[source_size - 2] == '=')
-        {
-            base64name_size --;
-        }
         base64name_size--;
+
+        if ((base64name_size) && (base64name[source_size - 2] == '='))
+        {
+            base64name_size--;
+        }
     }
 
     /* Check the buffer size.  */
