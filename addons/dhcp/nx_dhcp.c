@@ -7244,7 +7244,7 @@ NX_IP_DRIVER    driver_request;
     NX_CHANGE_ULONG_ENDIAN(ip_header_ptr -> nx_ip_header_word_2);
     NX_CHANGE_ULONG_ENDIAN(ip_header_ptr -> nx_ip_header_source_ip);
     NX_CHANGE_ULONG_ENDIAN(ip_header_ptr -> nx_ip_header_destination_ip);
-     
+
 #ifdef NX_DISABLE_IP_TX_CHECKSUM
     compute_checksum = 0;
 #else /* NX_DISABLE_IP_TX_CHECKSUM */

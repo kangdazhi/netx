@@ -26,7 +26,7 @@
 /*  PORT SPECIFIC C INFORMATION                            RELEASE        */
 /*                                                                        */
 /*    nx_user.h                                           PORTABLE C      */
-/*                                                           6.1          */
+/*                                                           6.1.11       */
 /*                                                                        */
 /*  AUTHOR                                                                */
 /*                                                                        */
@@ -47,6 +47,8 @@
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  04-25-2022     Yuxin Zhou               Modified comment(s),          */
+/*                                            resulting in version 6.1.11 */
 /*                                                                        */
 /**************************************************************************/
 
@@ -105,7 +107,7 @@
 #define NX_ARP_DEFEND_BY_REPLY
 */
 
-/* To use the ARP collision hander to check for invalid ARP messages
+/* To use the ARP collision handler to check for invalid ARP messages
    matching existing entries in the table (man in the middle attack),
    enable this feature.  */
 /*

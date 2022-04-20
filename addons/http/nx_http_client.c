@@ -698,7 +698,7 @@ UINT status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_http_client_get_start_extended                  PORTABLE C      */ 
-/*                                                           6.1.6        */
+/*                                                           6.1.11       */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -766,6 +766,10 @@ UINT status;
 /*                                            improved the logic of       */
 /*                                            parsing base64,             */
 /*                                            resulting in version 6.1.6  */
+/*  04-25-2022     Yuxin Zhou               Modified comment(s), and      */
+/*                                            correted the status when    */
+/*                                            received error code,        */
+/*                                            resulting in version 6.1.11 */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_http_client_get_start_extended(NX_HTTP_CLIENT *client_ptr, ULONG server_ip, CHAR *resource, UINT resource_length,
@@ -1058,6 +1062,9 @@ UINT        temp_password_length = 0;
 
             /* Release the packet.  */
             nx_packet_release(response_packet_ptr);
+
+            /* Received error code.  */
+            status = NX_HTTP_REQUEST_UNSUCCESSFUL_CODE;
         }
     }
 

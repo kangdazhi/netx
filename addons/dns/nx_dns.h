@@ -228,7 +228,7 @@ extern   "C" {
 */
 
 /* Enable the cache to store the resource record.  */
-/* 
+/*
 #define NX_DNS_CACHE_ENABLE
 */
 

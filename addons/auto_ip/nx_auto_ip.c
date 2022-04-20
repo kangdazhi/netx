@@ -857,7 +857,7 @@ NX_IP       *ip_ptr;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_auto_ip_thread_entry                            PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.11       */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -897,6 +897,9 @@ NX_IP       *ip_ptr;
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  04-25-2022     Yuxin Zhou               Modified comment(s),          */
+/*                                            fixed compiler warnings,    */
+/*                                            resulting in version 6.1.11 */
 /*                                                                        */
 /**************************************************************************/
 VOID  _nx_auto_ip_thread_entry(ULONG auto_ip_ptr_info)  
@@ -1078,7 +1081,7 @@ ULONG           host_ip_address;
         {
 
 #ifdef NX_AUTO_IP_DEBUG
-            printf("AutoIP %s, CONFLICT for: %d,%d,%d,%d\n", auto_ip_ptr -> nx_auto_ip_name, 
+            printf("AutoIP %s, CONFLICT for: %lu,%lu,%lu,%lu\n", auto_ip_ptr -> nx_auto_ip_name, 
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 24),
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 16 & 0xFF),
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 8 & 0xFF),
@@ -1096,7 +1099,7 @@ ULONG           host_ip_address;
            is ours!  */
         
 #ifdef NX_AUTO_IP_DEBUG
-        printf("AutoIP %s, RESOLVED for: %d,%d,%d,%d\n", auto_ip_ptr -> nx_auto_ip_name, 
+        printf("AutoIP %s, RESOLVED for: %lu,%lu,%lu,%lu\n", auto_ip_ptr -> nx_auto_ip_name, 
                                 (auto_ip_ptr -> nx_auto_ip_current_local_address >> 24),
                                 (auto_ip_ptr -> nx_auto_ip_current_local_address >> 16 & 0xFF),
                                 (auto_ip_ptr -> nx_auto_ip_current_local_address >> 8 & 0xFF),
@@ -1144,7 +1147,7 @@ ULONG           host_ip_address;
         {
 
 #ifdef NX_AUTO_IP_DEBUG
-            printf("AutoIP %s, CONFLICT for: %d,%d,%d,%d\n", auto_ip_ptr -> nx_auto_ip_name, 
+            printf("AutoIP %s, CONFLICT for: %lu,%lu,%lu,%lu\n", auto_ip_ptr -> nx_auto_ip_name, 
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 24),
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 16 & 0xFF),
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 8 & 0xFF),
@@ -1173,7 +1176,7 @@ ULONG           host_ip_address;
             auto_ip_ptr -> nx_auto_ip_defend_count++;
 
 #ifdef NX_AUTO_IP_DEBUG
-            printf("AutoIP %s, DEFEND for: %d,%d,%d,%d\n", auto_ip_ptr -> nx_auto_ip_name, 
+            printf("AutoIP %s, DEFEND for: %lu,%lu,%lu,%lu\n", auto_ip_ptr -> nx_auto_ip_name, 
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 24),
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 16 & 0xFF),
                                     (auto_ip_ptr -> nx_auto_ip_current_local_address >> 8 & 0xFF),

@@ -86,19 +86,19 @@
 #ifdef NX_LITTLE_ENDIAN
 #define NX_CHANGE_ULONG_ENDIAN(arg)                         \
     {                                                       \
-        ULONG i;                                            \
+        ULONG _i;                                           \
         ULONG tmp;                                          \
-        i = (UINT)arg;                                      \
-        /* i = A, B, C, D */                                \
-        tmp = i ^ (((i) >> 16) | (i << 16));                \
-        /* tmp = i ^ (i ROR 16) = A^C, B^D, C^A, D^B */     \
+        _i = (UINT)arg;                                     \
+        /* _i = A, B, C, D */                               \
+        tmp = _i ^ (((_i) >> 16) | (_i << 16));             \
+        /* tmp = _i ^ (_i ROR 16) = A^C, B^D, C^A, D^B*/    \
         tmp &= 0xff00ffff;                                  \
         /* tmp = A^C, 0, C^A, D^B */                        \
-        i = ((i) >> 8) | (i<<24);                           \
-        /* i = D, A, B, C */                                \
-        i = i ^ ((tmp) >> 8);                               \
-        /* i = D, C, B, A */                                \
-        arg = i;                                            \
+        _i = ((_i) >> 8) | (_i<<24);                        \
+        /* _i = D, A, B, C */                               \
+        _i = _i ^ ((tmp) >> 8);                             \
+        /* _i = D, C, B, A */                               \
+        arg = _i;                                           \
     }
 #define NX_CHANGE_USHORT_ENDIAN(a)      a = (((a >> 8) | (a << 8)) & 0xFFFF)
 
@@ -201,7 +201,7 @@
 
 #ifdef NX_SYSTEM_INIT
 CHAR                            _nx_version_id[] = 
-                                    "Copyright (c) Microsoft Corporation. All rights reserved.  *  NetX ARM9/GNU Version 6.1.10 *";
+                                    "Copyright (c) Microsoft Corporation. All rights reserved.  *  NetX ARM9/GNU Version 6.1.11 *";
 #else
 extern  CHAR                    _nx_version_id[];
 #endif

@@ -130,7 +130,7 @@ NX_PACKET *work_ptr;
 /*  FUNCTION                                               RELEASE        */
 /*                                                                        */
 /*    _nx_tcp_socket_state_data_trim_front                PORTABLE C      */
-/*                                                           6.1          */
+/*                                                           6.1.11       */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -165,6 +165,9 @@ NX_PACKET *work_ptr;
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  04-25-2022     Yuxin Zhou               Modified comment(s), and      */
+/*                                            verified memmove use cases, */
+/*                                            resulting in version 6.1.11 */
 /*                                                                        */
 /**************************************************************************/
 static void _nx_tcp_socket_state_data_trim_front(NX_PACKET *packet_ptr, ULONG amount)
@@ -236,7 +239,7 @@ ULONG      work_length;
                    of the packet, right after TCP header.  */
                 memmove(packet_ptr -> nx_packet_prepend_ptr,
                         packet_ptr -> nx_packet_prepend_ptr + amount,
-                        work_length - amount);
+                        work_length - amount); /* Use case of memmove is verified.  */
                 packet_ptr -> nx_packet_append_ptr -= amount;
             }
             else
