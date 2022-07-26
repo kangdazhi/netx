@@ -26,7 +26,7 @@
 /*  APPLICATION INTERFACE DEFINITION                       RELEASE        */
 /*                                                                        */
 /*    nx_api.h                                            PORTABLE C      */
-/*                                                           6.1.11       */
+/*                                                           6.1.12       */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -82,6 +82,12 @@
 /*  04-25-2022     Yuxin Zhou               Modified comment(s), and      */
 /*                                            updated product constants,  */
 /*                                            resulting in version 6.1.11 */
+/*  07-29-2022     Yuxin Zhou               Modified comment(s), and      */
+/*                                            updated product constants,  */
+/*                                            fixed compiler errors when  */
+/*                                            TX_SAFETY_CRITICAL is       */
+/*                                            enabled, added NX_ASSERT,   */
+/*                                            resulting in version 6.1.12 */
 /*                                                                        */
 /**************************************************************************/
 
@@ -106,10 +112,13 @@ extern   "C" {
 
 
 /* Bypass ThreadX API error checking for internal NetX calls.  */
+#include "tx_port.h"
 
 #ifdef NX_SOURCE_CODE
+#ifndef TX_SAFETY_CRITICAL
 #ifndef TX_DISABLE_ERROR_CHECKING
 #define TX_DISABLE_ERROR_CHECKING
+#endif
 #endif
 #endif
 
@@ -148,6 +157,16 @@ extern   "C" {
 #define NX_IP_PERIODIC_RATE                             100
 #endif
 #endif
+
+/* This defines the ASSET and process on ASSET fail. */
+#ifndef NX_DISABLE_ASSERT
+#ifndef NX_ASSERT_FAIL
+#define NX_ASSERT_FAIL                                      for (;;) {tx_thread_sleep(NX_WAIT_FOREVER); }
+#endif /* NX_ASSERT_FAIL */
+#define NX_ASSERT(s)                                        if (!(s)) {NX_ASSERT_FAIL}
+#else
+#define NX_ASSERT(s)
+#endif /* NX_DISABLE_ASSERT */
 
 #ifndef NX_RAND
 #ifdef NX_HIGH_SECURITY
@@ -390,7 +409,7 @@ VOID _nx_trace_event_update(TX_TRACE_BUFFER_ENTRY *event, ULONG timestamp, ULONG
 #define AZURE_RTOS_NETX
 #define NETX_MAJOR_VERSION        6
 #define NETX_MINOR_VERSION        1
-#define NETX_PATCH_VERSION        11
+#define NETX_PATCH_VERSION        12
 
 /* The following symbols are defined for backward compatibility reasons.*/
 #define EL_PRODUCT_NETX

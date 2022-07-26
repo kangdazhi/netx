@@ -2034,7 +2034,7 @@ NX_SNTP_TIME local_time;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_sntp_client_receive_time_update                 PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.12       */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -2082,6 +2082,9 @@ NX_SNTP_TIME local_time;
 /*                                            added support for disabling */
 /*                                            message check,              */
 /*                                            resulting in version 6.1    */
+/*  07-29-2022     Yuxin Zhou               Modified comment(s), and      */
+/*                                            corrected the port check,   */
+/*                                            resulting in version 6.1.12 */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_sntp_client_receive_time_update(NX_SNTP_CLIENT *client_ptr, ULONG timeout)
@@ -2124,7 +2127,7 @@ NX_IP_HEADER    *ip_header_ptr;
         sender_port = (UINT)udp_header_ptr -> nx_udp_header_word_0 >> NX_SHIFT_BY_16; 
 
         /* Check if this is the server port the Client expects.  */
-        if (sender_port != NX_SNTP_CLIENT_UDP_PORT) 
+        if (sender_port != NX_SNTP_SERVER_UDP_PORT) 
         {
 
             /* No, reject the packet.  */

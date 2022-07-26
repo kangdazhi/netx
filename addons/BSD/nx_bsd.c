@@ -9926,7 +9926,7 @@ UINT index = 0;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    getaddrinfo                                         PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.1.12       */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -9985,6 +9985,9 @@ UINT index = 0;
 /*                                            verified memcpy use cases,  */
 /*                                            fixed compiler errors,      */
 /*                                            resulting in version 6.1    */
+/*  07-29-2022     Yuxin Zhou               Modified comment(s), and      */
+/*                                            fixed compiler warnings,    */
+/*                                            resulting in version 6.1.12 */
 /*                                                                        */
 /**************************************************************************/
 INT  getaddrinfo(const CHAR *node, const CHAR *service, const struct addrinfo *hints, struct addrinfo **res)
@@ -10109,7 +10112,7 @@ static struct addrinfo default_hints = {0, AF_UNSPEC, 0, 0, 0, NX_NULL, NX_NULL,
             /* Service is a decimal port number string, and has been converted to a numeric port successfully. */
 
             /* Convert port from host byte order to network byte order. */
-            port = htons(port);
+            port = htons((USHORT)port);
         }
         else
         {

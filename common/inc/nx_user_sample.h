@@ -26,7 +26,7 @@
 /*  PORT SPECIFIC C INFORMATION                            RELEASE        */
 /*                                                                        */
 /*    nx_user.h                                           PORTABLE C      */
-/*                                                           6.1.11       */
+/*                                                           6.1.12       */
 /*                                                                        */
 /*  AUTHOR                                                                */
 /*                                                                        */
@@ -49,6 +49,9 @@
 /*                                            resulting in version 6.1    */
 /*  04-25-2022     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1.11 */
+/*  07-29-2022     Yuxin Zhou               Modified comment(s), and      */
+/*                                            added NX_ASSERT,            */
+/*                                            resulting in version 6.1.12 */
 /*                                                                        */
 /**************************************************************************/
 
@@ -482,6 +485,16 @@
 /* Define the max string length. The default value is 1024.  */
 /*
 #define NX_MAX_STRING_LENGTH                                1024
+*/
+
+/* Defined, ASSERT is disabled. The default is enabled. */
+/*
+#define NX_DISABLE_ASSERT
+*/
+
+/* Define the process when assert fails. */
+/*
+#define NX_ASSERT_FAIL while (1) tx_thread_sleep(NX_WAIT_FOREVER);
 */
 
 #endif

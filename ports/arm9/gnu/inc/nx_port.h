@@ -201,7 +201,7 @@
 
 #ifdef NX_SYSTEM_INIT
 CHAR                            _nx_version_id[] = 
-                                    "Copyright (c) Microsoft Corporation. All rights reserved.  *  NetX ARM9/GNU Version 6.1.11 *";
+                                    "Copyright (c) Microsoft Corporation. All rights reserved.  *  NetX ARM9/GNU Version 6.1.12 *";
 #else
 extern  CHAR                    _nx_version_id[];
 #endif
