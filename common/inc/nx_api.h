@@ -26,7 +26,7 @@
 /*  APPLICATION INTERFACE DEFINITION                       RELEASE        */
 /*                                                                        */
 /*    nx_api.h                                            PORTABLE C      */
-/*                                                           6.1.12       */
+/*                                                           6.2.0        */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -88,6 +88,9 @@
 /*                                            TX_SAFETY_CRITICAL is       */
 /*                                            enabled, added NX_ASSERT,   */
 /*                                            resulting in version 6.1.12 */
+/*  10-31-2022     Tiejun Zhou              Modified comment(s), and      */
+/*                                            updated product constants,  */
+/*                                            resulting in version 6.2.0  */
 /*                                                                        */
 /**************************************************************************/
 
@@ -408,8 +411,8 @@ VOID _nx_trace_event_update(TX_TRACE_BUFFER_ENTRY *event, ULONG timestamp, ULONG
 /* Define basic constants for the NetX TCP/IP Stack.  */
 #define AZURE_RTOS_NETX
 #define NETX_MAJOR_VERSION        6
-#define NETX_MINOR_VERSION        1
-#define NETX_PATCH_VERSION        12
+#define NETX_MINOR_VERSION        2
+#define NETX_PATCH_VERSION        0
 
 /* The following symbols are defined for backward compatibility reasons.*/
 #define EL_PRODUCT_NETX
