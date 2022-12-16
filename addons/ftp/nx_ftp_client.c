@@ -946,7 +946,7 @@ UINT    status;
 /*  FUNCTION                                               RELEASE        */ 
 /*                                                                        */ 
 /*    _nx_ftp_client_delete                               PORTABLE C      */ 
-/*                                                           6.1          */
+/*                                                           6.x          */
 /*  AUTHOR                                                                */
 /*                                                                        */
 /*    Yuxin Zhou, Microsoft Corporation                                   */
@@ -980,6 +980,9 @@ UINT    status;
 /*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
 /*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
 /*                                            resulting in version 6.1    */
+/*  xx-xx-xxxx     Wenhui Xie               Modified comment(s),          */
+/*                                            cleared the client ID,      */
+/*                                            resulting in version 6.x    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_ftp_client_delete(NX_FTP_CLIENT *ftp_client_ptr)
@@ -992,6 +995,9 @@ UINT  _nx_ftp_client_delete(NX_FTP_CLIENT *ftp_client_ptr)
         /* Already connected, return an error.  */
         return(NX_FTP_NOT_DISCONNECTED);
     }
+
+    /* Clear the client ID .  */
+    ftp_client_ptr -> nx_ftp_client_id = 0;
 
     /* Delete the control and data sockets.  */
     nx_tcp_socket_delete(&(ftp_client_ptr -> nx_ftp_client_control_socket));
